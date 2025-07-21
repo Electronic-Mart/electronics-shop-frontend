@@ -4,9 +4,9 @@ import CategorySection from '../components/CategorySection';
 import '../index.css';
 
 const backgroundImages = [
-  '/src/assets/hero1.jpg',
-  '/src/assets/hero2.jpg',
-  '/src/assets/hero3.jpg',
+  '/hero1.jpg',
+  '/hero2.jpg',
+  '/hero3.jpg',
 ];
 
 const Home = () => {
