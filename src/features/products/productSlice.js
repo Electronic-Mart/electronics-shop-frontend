@@ -1,29 +1,49 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const initialState = {
-  list: [],
-  loading: false,
-  error: null,
-};
+// 1. Async thunk for fetching products
+export const fetchProducts = createAsyncThunk(
+  'products/fetchProducts',
+  async (_, thunkAPI) => {
+    try {
+      // Replace with real API call when ready
+      const response = [
+        { id: 1, name: 'MacBook Pro', category: 'laptop', price: 1999 },
+        { id: 2, name: 'iPhone 13', category: 'phone', price: 999 },
+        { id: 3, name: 'Sony Headphones', category: 'accessory', price: 299 },
+      ];
+      return response;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
 
+// 2. Slice
 const productSlice = createSlice({
   name: 'products',
-  initialState,
-  reducers: {
-    fetchProductsStart: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    fetchProductsSuccess: (state, action) => {
-      state.loading = false;
-      state.list = action.payload;
-    },
-    fetchProductsFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
+  initialState: {
+    list: [],
+    loading: false,
+    error: null,
+  },
+  reducers: {},
+
+  // 3. Extra reducers handle async thunk states
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProducts.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.list = action.payload;
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
-export const { fetchProductsStart, fetchProductsSuccess, fetchProductsFailure } = productSlice.actions;
 export default productSlice.reducer;
