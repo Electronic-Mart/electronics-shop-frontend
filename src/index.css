@@ -202,6 +202,22 @@ main {
   color: orange;
 }
 
+.cart-wrapper {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: green;
+  color: white;
+  font-size: 1.0rem;
+  font-weight: bold;
+  padding: 0.2rem 0.4rem;
+  border-radius: 50%;
+}
+
 .navbar-right-links a.login-btn {
   padding: 0.2rem 0.9rem;
   border: 2px solid orange;
@@ -649,6 +665,8 @@ main {
   background-color: orange;
   color: white;
   border: none;
+  font-size: 17px;
+  font-weight: bolder;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
@@ -660,7 +678,7 @@ main {
 }
 
 .image-container {
-  height: 180px; /* same height for all cards */
+  height: 180px; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -723,6 +741,41 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1.5rem;
+}
+
+.quantity-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.quantity-controls button {
+  background-color: orange;
+  color: white;
+  font-size: 1.25rem;
+  padding: 0.3rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.quantity-controls span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.view-cart-btn {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+  margin: 0 auto;
 }
 
 /* cart */
@@ -790,18 +843,20 @@ main {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: bolder;
+  font-size: 20px;
 }
 
 .continue-btn {
-  background: transparent;
-  border: 1px solid orange;
+  background: black;
+  border: 1px solid black;
   color: orange;
 }
 
 .continue-btn:hover {
-  background: orange;
-  color: white;
+  background: transparent;
+  color: orange;
+  border: 1px solid orange;
 }
 
 .checkout-btn {
@@ -811,4 +866,19 @@ main {
 
 .checkout-btn:hover {
   background-color: #e69500;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
 }
