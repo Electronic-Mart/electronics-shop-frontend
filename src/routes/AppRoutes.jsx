@@ -6,6 +6,7 @@ import Register from '../pages/Register';
 import AboutUs from '../pages/AboutUs.jsx';
 import Contacts from '../pages/Contacts.jsx';
 import ProductList from '../pages/ProductList';
+import Cart from '../pages/Cart.jsx';
 
 const AppRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AppRoutes = () => {
       <Route path="/about" element={<AboutUs />} />
       <Route path="/contact" element={<Contacts />} />
       <Route path="/products" element={<ProductList />} />
+      <Route path="/cart" element={<Cart />} />
     </Routes>
   );
 };

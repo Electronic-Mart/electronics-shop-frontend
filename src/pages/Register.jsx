@@ -21,19 +21,34 @@ const Register = () => {
     e.preventDefault();
 
     if (form.password !== form.confirmPassword) {
-      setError("Passwords do not match");
+      setError('Passwords do not match');
       return;
     }
 
-    // Simulate registration (replace with API logic)
-    const newUser = {
-      name: form.name,
-      email: form.email,
-      password: form.password,
-    };
+    try {
+      // REPLACE THIS BLOCK with real API call when backend is ready
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const exists = users.find((u) => u.email === form.email);
 
-    console.log('Registered user:', newUser);
-    navigate('/login'); // Redirect after "success"
+      if (exists) {
+        setError('User already exists');
+        return;
+      }
+
+      const newUser = {
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      };
+
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      // END OF PLACEHOLDER BLOCK
+
+      navigate('/login');
+    } catch (err) {
+      setError(err.message || 'Registration failed');
+    }
   };
 
   return (
