@@ -19,17 +19,24 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // Simulate login API call
-      if (form.email === 'user@example.com' && form.password === 'password') {
+      // === SIMULATED LOGIN - Replace this block with real API call later ===
+      const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+      const existingUser = storedUsers.find(
+        (user) => user.email === form.email && user.password === form.password
+      );
+
+      if (existingUser) {
         const fakeUser = {
-          user: { name: 'John Doe', email: form.email },
+          user: { name: existingUser.name, email: existingUser.email },
           token: 'fake-jwt-token',
         };
         dispatch(loginSuccess(fakeUser));
-        navigate('/');
+        navigate('/products');
       } else {
         setError('Invalid credentials');
       }
+      // === END SIMULATED LOGIN ===
     } catch (err) {
       setError(err.message || 'Login failed');
     }
@@ -73,4 +80,3 @@ const Login = () => {
 };
 
 export default Login;
-

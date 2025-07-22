@@ -7,9 +7,27 @@ export const fetchProducts = createAsyncThunk(
     try {
       // Replace with real API call when ready
       const response = [
-        { id: 1, name: 'MacBook Pro', category: 'laptop', price: 1999 },
-        { id: 2, name: 'iPhone 13', category: 'phone', price: 999 },
-        { id: 3, name: 'Sony Headphones', category: 'accessory', price: 299 },
+        {
+          id: 1,
+          name: 'MacBook Pro',
+          category: 'laptop',
+          price: 1999,
+          image: '/products/macbook-pro.jpg',
+        },
+        {
+          id: 2,
+          name: 'iPhone 13',
+          category: 'phone',
+          price: 999,
+          image: '/products/iphone-13.jpg',
+        },
+        {
+          id: 3,
+          name: 'Sony Headphones',
+          category: 'accessory',
+          price: 299,
+          image: '/products/sony-headphones.jpg',
+        },
       ];
       return response;
     } catch (err) {
