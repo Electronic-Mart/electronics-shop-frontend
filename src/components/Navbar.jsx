@@ -7,6 +7,7 @@ import '../index.css';
 
 const Navbar = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -14,6 +15,8 @@ const Navbar = () => {
     dispatch(logout());
     navigate('/login');
   };
+
+  const cartCount = cartItems?.reduce((total, item) => total + item.quantity, 0) || 0;
 
   return (
     <nav className="navbar">
@@ -30,7 +33,7 @@ const Navbar = () => {
 
       <ul className="navbar-right-links">
         {isAuthenticated && (
-          <li>
+          <li style={{ position: 'relative' }}>
             <NavLink
               to="/cart"
               className={({ isActive }) =>
@@ -38,6 +41,9 @@ const Navbar = () => {
               }
             >
               <FaShoppingCart size={36} className="cart-svg" />
+              {cartCount > 0 && (
+                <span className="cart-count">{cartCount}</span>
+              )}
             </NavLink>
           </li>
         )}
