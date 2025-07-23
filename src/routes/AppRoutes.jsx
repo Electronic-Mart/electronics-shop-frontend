@@ -7,6 +7,8 @@ import AboutUs from '../pages/AboutUs.jsx';
 import Contacts from '../pages/Contacts.jsx';
 import ProductList from '../pages/ProductList';
 import Cart from '../pages/Cart.jsx';
+import Checkout from '../pages/Checkout.jsx';
+import Profile from '../pages/Profile.jsx';
 
 const AppRoutes = () => {
   return (
@@ -18,6 +20,8 @@ const AppRoutes = () => {
       <Route path="/contact" element={<Contacts />} />
       <Route path="/products" element={<ProductList />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaUserCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../features/auth/authSlice';
 import '../index.css';
@@ -33,19 +33,32 @@ const Navbar = () => {
 
       <ul className="navbar-right-links">
         {isAuthenticated && (
-          <li style={{ position: 'relative' }}>
-            <NavLink
-              to="/cart"
-              className={({ isActive }) =>
-                isActive ? "cart-icon active" : "cart-icon"
-              }
-            >
-              <FaShoppingCart size={36} className="cart-svg" />
-              {cartCount > 0 && (
-                <span className="cart-count">{cartCount}</span>
-              )}
-            </NavLink>
-          </li>
+          <>
+            <li>
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  isActive ? "profile-icon-link active" : "profile-icon-link"
+                }
+              >
+                <FaUserCircle size={28} />
+              </NavLink>
+            </li>
+
+            <li style={{ position: 'relative' }}>
+              <NavLink
+                to="/cart"
+                className={({ isActive }) =>
+                  isActive ? "cart-icon active" : "cart-icon"
+                }
+              >
+                <FaShoppingCart size={28} className="cart-svg" />
+                {cartCount > 0 && (
+                  <span className="cart-count">{cartCount}</span>
+                )}
+              </NavLink>
+            </li>
+          </>
         )}
 
         <li>
