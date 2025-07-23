@@ -70,7 +70,7 @@ const ProductCard = ({ product }) => {
             <button onClick={handleIncrement}>+</button>
           </div>
           <button className="view-cart-btn" onClick={() => navigate('/cart')}>
-            View Your Cart
+            Added to Cart
           </button>
         </>
       )}

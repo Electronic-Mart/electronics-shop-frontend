@@ -327,6 +327,72 @@ main {
   margin: 1rem 0;
 }
 
+.footer {
+  background-color: #111;
+  color: #fff;
+  padding: 40px 20px;
+}
+
+.footer-sections {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-column h4 {
+  color: #ffa500; /* orange heading */
+  margin-bottom: 15px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+  color: #ffa500; /* hover orange */
+}
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 20px 0;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  color: #aaa;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+.social-icons a {
+  color: #ccc;
+  font-size: 18px;
+  margin-left: 15px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ffa500;
+}
+
 .footer-column h4 {
   font-size: 1rem;
   margin-bottom: 0.75rem;
@@ -773,7 +839,8 @@ main {
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: bolder;
+  font-size: 17px;
   display: block;
   margin: 0 auto;
 }
@@ -882,3 +949,174 @@ main {
 .delete-btn:hover {
   background-color: #c82333;
 }
+
+/* checkout */
+.checkout-page {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 100px auto 2rem auto;
+}
+
+.checkout-content {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.checkout-form {
+  flex: 1;
+  min-width: 300px;
+}
+
+.checkout-form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.order-summary {
+  flex: 1;
+  min-width: 300px;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+.order-summary ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.order-summary li {
+  margin-bottom: 0.5rem;
+}
+
+.checkout-btn {
+  background-color: orange;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.checkout-btn:hover {
+  background-color: #e69500;
+}
+
+.error-text {
+  color: red;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+ /* profile */
+ .profile-container {
+  max-width: 700px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.profile-section {
+  margin-bottom: 2rem;
+}
+
+.profile-section h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.profile-section label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.profile-section input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.save-btn {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.success-msg {
+  color: green;
+  margin-top: 1rem;
+}
+
+.order-list {
+  margin-top: 1rem;
+}
+
+.order-card {
+  border: 1px solid #eee;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  background: #fafafa;
+}
+
+.profile-icon-link {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  justify-content: center;
+  vertical-align: middle;
+  margin: 0 10px;
+  height: 36px; /* match cart icon size */
+}
+
+.profile-icon-link li {
+  margin-left: 1rem;
+}
+
+.profile-icon-link {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.profile-icon-link:hover {
+  color: orange;
+}
+
+.profile-icon-link.active {
+  color: orange;
+}
+
+.profile-icon-link li {
+  margin-left: 1rem;
+}
+
+.profile-icon-link {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.profile-icon-link:hover {
+  color: orange;
+}
+
+.profile-icon-link.active {
+  color: orange;
+}
+
