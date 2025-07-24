@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaUserCircle } from 'react-icons/fa';
+import { MdAdminPanelSettings } from 'react-icons/md'; // ✅ Added admin icon
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../features/auth/authSlice';
 import '../index.css';
@@ -42,6 +43,17 @@ const Navbar = () => {
                 }
               >
                 <FaUserCircle size={28} />
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/admin"
+                className={({ isActive }) =>
+                  isActive ? "profile-icon-link active" : "profile-icon-link"
+                }
+              >
+                <MdAdminPanelSettings size={28} />
               </NavLink>
             </li>
 
