@@ -9,6 +9,12 @@ import ProductList from '../pages/ProductList';
 import Cart from '../pages/Cart.jsx';
 import Checkout from '../pages/Checkout.jsx';
 import Profile from '../pages/Profile.jsx';
+import AdminDashboard from '../pages/AdminDashboard';
+import ManageProducts from '../pages/ManageProducts';
+import ManageUsers from '../pages/ManageUsers';
+//import Orders from '../pages/Orders';
+import Analytics from '../pages/Analytics';
+
 
 const AppRoutes = () => {
   return (
@@ -22,6 +28,10 @@ const AppRoutes = () => {
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/admin" element={<AdminDashboard />} />
+      <Route path="/admin/products" element={<ManageProducts />} />
+      <Route path="/admin/users" element={<ManageUsers />} />
+      <Route path="/admin/analytics" element={<Analytics />} />
     </Routes>
   );
 };
