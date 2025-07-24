@@ -18,21 +18,21 @@ const AdminDashboard = () => {
             </div>
           </Link>
 
-          <Link to="/admin/manage-users" className="admin-card-link">
+          <Link to="/admin/users" className="admin-card-link">
             <div className="admin-card">
               <h3>Manage Users</h3>
               <p>View and assign roles to users managing products and orders.</p>
             </div>
           </Link>
 
-          <Link to="/admin/analytics/products" className="admin-card-link">
+          <Link to="/admin/analytics" className="admin-card-link">
             <div className="admin-card">
               <h3>Product Analytics</h3>
               <p>Track trends, views, and popularity of electronics.</p>
             </div>
           </Link>
 
-          <Link to="/admin/analytics/orders" className="admin-card-link">
+          <Link to="/admin/analytics" className="admin-card-link">
             <div className="admin-card">
               <h3>Order Analytics</h3>
               <p>Monitor sales and customer order history.</p>
