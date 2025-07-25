@@ -12,7 +12,7 @@ const AppContent = () => {
   return (
     <div className="app-container">
       <Navbar />
-      <main>
+      <main className="main-content">
         <AppRoutes />
       </main>
       {!hideFooter && <Footer />}
