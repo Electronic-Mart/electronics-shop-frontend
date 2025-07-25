@@ -4,6 +4,12 @@ import '../index.css';
 const Contacts = () => {
   return (
     <div className="contacts-page">
+      <h2 className="contact-title">Contact Us</h2>
+      <p className="contact-description">
+        We’re here to help! Whether you have questions about our products, services, or need assistance with your order,
+        feel free to reach out. Our team is ready to assist you.
+      </p>
+      
       <section className="map-section">
         <iframe
           title="Electro Mart Location"
