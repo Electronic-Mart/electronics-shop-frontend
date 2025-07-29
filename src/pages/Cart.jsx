@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { removeItemCompletely } from '../features/cart/cartSlice';
+import {
+  addToCart,
+  removeFromCart,
+  removeItemCompletely,
+} from '../features/cart/cartSlice';
 import '../index.css';
 
 const Cart = () => {
@@ -22,7 +26,18 @@ const Cart = () => {
     dispatch(removeItemCompletely(id));
   };
 
-  // Responsive state
+  const handleIncrement = (product) => {
+    dispatch(addToCart(product));
+  };
+
+  const handleDecrement = (product) => {
+    if (product.quantity > 1) {
+      dispatch(removeFromCart(product.id));
+    } else {
+      dispatch(removeItemCompletely(product.id));
+    }
+  };
+
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -47,7 +62,7 @@ const Cart = () => {
                   <th>Price</th>
                   <th>Qty</th>
                   <th>Subtotal</th>
-                  <th></th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -61,9 +76,13 @@ const Cart = () => {
                     <td>{item.quantity}</td>
                     <td>Ksh {(item.price * item.quantity).toLocaleString()}</td>
                     <td>
-                      <button className="delete-btn" onClick={() => handleDelete(item.id)}>
-                        Delete
-                      </button>
+                      <div className="cart-actions">
+                        <button onClick={() => handleDecrement(item)}>-</button>
+                        <button onClick={() => handleIncrement(item)}>+</button>
+                        <button className="delete-btn" onClick={() => handleDelete(item.id)}>
+                          Delete
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -72,24 +91,27 @@ const Cart = () => {
           )}
 
           {/* Mobile Cards */}
-          {isMobile && cartItems.map((item) => (
-            <div key={item.id} className="cart-item-mobile">
-              <div className="cart-product-info">
-                <img src={item.image} alt={item.name} className="cart-img" />
-                <div className="cart-item-details">
-                  <strong>{item.name}</strong>
-                  <span>Price: Ksh {item.price.toLocaleString()}</span>
-                  <span>Qty: {item.quantity}</span>
-                  <span>Subtotal: Ksh {(item.price * item.quantity).toLocaleString()}</span>
+          {isMobile &&
+            cartItems.map((item) => (
+              <div key={item.id} className="cart-item-mobile">
+                <div className="cart-product-info">
+                  <img src={item.image} alt={item.name} className="cart-img" />
+                  <div className="cart-item-details">
+                    <strong>{item.name}</strong>
+                    <span>Price: Ksh {item.price.toLocaleString()}</span>
+                    <span>Qty: {item.quantity}</span>
+                    <span>Subtotal: Ksh {(item.price * item.quantity).toLocaleString()}</span>
+                  </div>
+                </div>
+                <div className="cart-item-actions">
+                  <button onClick={() => handleDecrement(item)}>-</button>
+                  <button onClick={() => handleIncrement(item)}>+</button>
+                  <button className="delete-btn" onClick={() => handleDelete(item.id)}>
+                    Delete
+                  </button>
                 </div>
               </div>
-              <div className="cart-item-actions">
-                <button className="delete-btn" onClick={() => handleDelete(item.id)}>
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
+            ))}
 
           <div className="cart-total">
             <h3>Total: Ksh {totalPrice.toLocaleString()}</h3>
