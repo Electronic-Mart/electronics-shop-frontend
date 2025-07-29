@@ -7,85 +7,80 @@ import { logout } from '../features/auth/authSlice';
 import '../index.css';
 
 const Navbar = () => {
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, role } = useSelector((state) => state.auth);
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
+    setDrawerOpen(false);
     navigate('/login');
   };
 
-  const cartCount = cartItems?.reduce((total, item) => total + item.quantity, 0) || 0;
+  // Count only unique products in cart
+  const cartCount = cartItems?.length || 0;
 
-  const toggleMenu = () => setMenuOpen(prev => !prev);
-  const closeMenu = () => setMenuOpen(false);
+  const closeDrawer = () => setDrawerOpen(false);
 
   return (
     <>
       <nav className="navbar">
         <div className="navbar-logo">
-          <Link to="/" onClick={closeMenu}>Electro Mart</Link>
-        </div>
-
-        <div className={`hamburger ${menuOpen ? 'open' : ''}`} onClick={toggleMenu}>
-          <div></div>
-          <div></div>
-          <div></div>
+          <Link to="/">Electro Mart</Link>
         </div>
 
         <ul className="navbar-center-links">
-          <li><NavLink to="/" end className="nav-link">Home</NavLink></li>
-          <li><NavLink to="/products" className="nav-link">Products</NavLink></li>
-          <li><NavLink to="/about" className="nav-link">About Us</NavLink></li>
-          <li><NavLink to="/contact" className="nav-link">Contacts</NavLink></li>
+          <li>
+            <NavLink to="/" end className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/products" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+              Products
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/about" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+              About Us
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+              Contacts
+            </NavLink>
+          </li>
         </ul>
 
         <ul className="navbar-right-links">
           {isAuthenticated && (
             <>
               <li>
-                <NavLink
-                  to="/profile"
-                  className={({ isActive }) =>
-                    isActive ? "profile-icon-link active" : "profile-icon-link"
-                  }
-                >
+                <NavLink to="/profile" className={({ isActive }) => isActive ? 'nav-link active' : 'profile-icon-link'}>
                   <FaUserCircle size={28} />
                 </NavLink>
               </li>
-
-              <li>
-                <NavLink
-                  to="/admin"
-                  className={({ isActive }) =>
-                    isActive ? "profile-icon-link active" : "profile-icon-link"
-                  }
-                >
-                  <MdAdminPanelSettings size={28} />
-                </NavLink>
-              </li>
-
+              {role === 'admin' && (
+                <li>
+                  <NavLink to="/admin" className={({ isActive }) => isActive ? 'nav-link active' : 'profile-icon-link'}>
+                    <MdAdminPanelSettings size={28} />
+                  </NavLink>
+                </li>
+              )}
               <li style={{ position: 'relative' }}>
-                <NavLink
-                  to="/cart"
-                  className={({ isActive }) =>
-                    isActive ? "cart-icon active" : "cart-icon"
-                  }
-                >
-                  <FaShoppingCart size={28} className="cart-svg" />
-                  {cartCount > 0 && (
-                    <span className="cart-count">{cartCount}</span>
-                  )}
+                <NavLink to="/cart" className={({ isActive }) => isActive ? 'nav-link active cart-icon' : 'cart-icon'}>
+                  <FaShoppingCart size={28} />
+                  {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
                 </NavLink>
               </li>
             </>
           )}
+
           <li>
             {isAuthenticated ? (
-              <button onClick={() => { handleLogout(); closeMenu(); }} className="login-btn logout-btn">
+              <button onClick={handleLogout} className="login-btn logout-btn">
                 Log out
               </button>
             ) : (
@@ -93,73 +88,106 @@ const Navbar = () => {
             )}
           </li>
         </ul>
+
+        <div
+          className={`hamburger ${isDrawerOpen ? 'open' : ''}`}
+          onClick={() => setDrawerOpen(!isDrawerOpen)}
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </nav>
 
-      {/* MOBILE DRAWER */}
-      {menuOpen && (
+      {isDrawerOpen && (
         <>
+          <div className="mobile-overlay" onClick={closeDrawer}></div>
           <div className="mobile-drawer">
             <ul>
-              <li><NavLink to="/" end className="nav-link" onClick={closeMenu}>Home</NavLink></li>
-              <li><NavLink to="/products" className="nav-link" onClick={closeMenu}>Products</NavLink></li>
-              <li><NavLink to="/about" className="nav-link" onClick={closeMenu}>About Us</NavLink></li>
-              <li><NavLink to="/contact" className="nav-link" onClick={closeMenu}>Contacts</NavLink></li>
+              <li>
+                <NavLink
+                  to="/"
+                  end
+                  className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+                  onClick={closeDrawer}
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/products"
+                  className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+                  onClick={closeDrawer}
+                >
+                  Products
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/about"
+                  className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+                  onClick={closeDrawer}
+                >
+                  About Us
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/contact"
+                  className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+                  onClick={closeDrawer}
+                >
+                  Contacts
+                </NavLink>
+              </li>
 
               {isAuthenticated && (
                 <>
                   <li>
                     <NavLink
                       to="/profile"
-                      className={({ isActive }) =>
-                        isActive ? "profile-icon-link active" : "profile-icon-link"
-                      }
-                      onClick={closeMenu}
+                      className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+                      onClick={closeDrawer}
                     >
-                      <FaUserCircle size={28} />
+                      Profile
                     </NavLink>
                   </li>
-
-                  <li>
-                    <NavLink
-                      to="/admin"
-                      className={({ isActive }) =>
-                        isActive ? "profile-icon-link active" : "profile-icon-link"
-                      }
-                      onClick={closeMenu}
-                    >
-                      <MdAdminPanelSettings size={28} />
-                    </NavLink>
-                  </li>
-
+                  {role === 'admin' && (
+                    <li>
+                      <NavLink
+                        to="/admin"
+                        className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+                        onClick={closeDrawer}
+                      >
+                        Admin Panel
+                      </NavLink>
+                    </li>
+                  )}
                   <li>
                     <NavLink
                       to="/cart"
-                      className={({ isActive }) =>
-                        isActive ? "cart-icon active" : "cart-icon"
-                      }
-                      onClick={closeMenu}
+                      className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+                      onClick={closeDrawer}
                     >
-                      <FaShoppingCart size={28} className="cart-svg" />
-                      {cartCount > 0 && (
-                        <span className="cart-count">{cartCount}</span>
-                      )}
+                      Cart {cartCount > 0 && `(${cartCount})`}
                     </NavLink>
+                  </li>
+                  <li>
+                    <button onClick={handleLogout} className="logout-btn">Log out</button>
                   </li>
                 </>
               )}
 
-              <li>
-                {isAuthenticated ? (
-                  <button onClick={() => { handleLogout(); closeMenu(); }} className="login-btn logout-btn">
-                    Log out
-                  </button>
-                ) : (
-                  <Link to="/login" className="login-btn" onClick={closeMenu}>Log in</Link>
-                )}
-              </li>
+              {!isAuthenticated && (
+                <li>
+                  <Link to="/login" className="login-btn" onClick={closeDrawer}>
+                    Log in
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
-          <div className="mobile-overlay" onClick={closeMenu}></div>
         </>
       )}
     </>

@@ -7,7 +7,6 @@ import '../index.css';
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
@@ -15,30 +14,35 @@ const Login = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      // === SIMULATED LOGIN - Replace this block with real API call later ===
-      const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const adminEmail = 'alexnjugi11@gmail.com';
+    const adminPassword = '1234';
 
-      const existingUser = storedUsers.find(
-        (user) => user.email === form.email && user.password === form.password
+    if (form.email === adminEmail && form.password === adminPassword) {
+      dispatch(loginSuccess({
+        name: 'Admin',
+        email: adminEmail,
+        role: 'admin',
+      }));
+      navigate('/admin');
+    } else {
+      const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+      const foundUser = storedUsers.find(
+        (u) => u.email === form.email && u.password === form.password
       );
 
-      if (existingUser) {
-        const fakeUser = {
-          user: { name: existingUser.name, email: existingUser.email },
-          token: 'fake-jwt-token',
-        };
-        dispatch(loginSuccess(fakeUser));
+      if (foundUser) {
+        dispatch(loginSuccess({
+          name: foundUser.name,
+          email: foundUser.email,
+          role: 'user',
+        }));
         navigate('/products');
       } else {
         setError('Invalid credentials');
       }
-      // === END SIMULATED LOGIN ===
-    } catch (err) {
-      setError(err.message || 'Login failed');
     }
   };
 
@@ -46,14 +50,13 @@ const Login = () => {
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Log in</h2>
-
         {error && <p className="error-text">{error}</p>}
 
         <label>Email address</label>
         <input
           type="email"
           name="email"
-          placeholder="Enter your email"
+          placeholder='Enter your email'
           value={form.email}
           onChange={handleChange}
           required
@@ -63,14 +66,13 @@ const Login = () => {
         <input
           type="password"
           name="password"
-          placeholder="Enter your password"
+          placeholder='Enter your password'
           value={form.password}
           onChange={handleChange}
           required
         />
 
         <button type="submit">Login</button>
-
         <p className="signup-text">
           Don’t have an account? <Link to="/register">Sign up</Link>
         </p>
