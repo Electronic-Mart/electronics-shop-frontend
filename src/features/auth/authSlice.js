@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { loginUser, registerUser } from './authAPI';
+import { loginUser, registerUser, updateUserProfile } from './authAPI';
 
 // Load from localStorage
 const storedUser = JSON.parse(localStorage.getItem('authUser'));
@@ -15,7 +15,7 @@ const initialState = {
   error: null,
 };
 
-// Thunk: login
+// ✅ Thunk: login
 export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
   try {
     const data = await loginUser(credentials); // { user, token }
@@ -25,7 +25,7 @@ export const login = createAsyncThunk('auth/login', async (credentials, thunkAPI
   }
 });
 
-// Thunk: register
+// ✅ Thunk: register
 export const register = createAsyncThunk('auth/register', async (userData, thunkAPI) => {
   try {
     const data = await registerUser(userData); // { user, token }
@@ -34,6 +34,21 @@ export const register = createAsyncThunk('auth/register', async (userData, thunk
     return thunkAPI.rejectWithValue(error.message);
   }
 });
+
+// ✅ Thunk: update profile
+export const updateProfile = createAsyncThunk(
+  'auth/updateProfile',
+  async (updatedData, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      const data = await updateUserProfile(token, updatedData); // returns updated user
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: 'auth',
@@ -54,7 +69,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Login
+      // ✅ Login
       .addCase(login.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -76,7 +91,7 @@ const authSlice = createSlice({
         state.error = action.payload || 'Login failed';
       })
 
-      // Register
+      // ✅ Register
       .addCase(register.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -96,6 +111,22 @@ const authSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Registration failed';
+      })
+
+      //  Update Profile
+      .addCase(updateProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+
+        localStorage.setItem('authUser', JSON.stringify(action.payload));
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Profile update failed';
       });
   },
 });
