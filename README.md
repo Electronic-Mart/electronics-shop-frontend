@@ -6,7 +6,7 @@ Welcome to the **frontend** of Electro Mart — a modern e-commerce platform for
 
 ## Live Demo
 
->  Coming soon...
+https://electronics-shop-frontend.onrender.com/
 
 ---
 
