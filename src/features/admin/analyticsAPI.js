@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api/admin';
+const API_BASE = 'https://electronics-shop-backend.onrender.com/api/admin';
 
 export const fetchAdminDashboard = async (token) => {
   const response = await fetch(`${API_BASE}/dashboard`, {

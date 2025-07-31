@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../features/auth/authSlice';
 import { useNavigate, Link } from 'react-router-dom';
 import '../index.css';
 
@@ -9,40 +9,36 @@ const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const { loading } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
-    const adminEmail = 'alexnjugi11@gmail.com';
-    const adminPassword = '1234';
+    const trimmedForm = {
+      email: form.email.trim(),
+      password: form.password,
+    };
 
-    if (form.email === adminEmail && form.password === adminPassword) {
-      dispatch(loginSuccess({
-        name: 'Admin',
-        email: adminEmail,
-        role: 'admin',
-      }));
-      navigate('/admin');
-    } else {
-      const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-      const foundUser = storedUsers.find(
-        (u) => u.email === form.email && u.password === form.password
-      );
+    try {
+      console.log('🔐 Logging in with:', trimmedForm); // Optional debug
+      const result = await dispatch(login(trimmedForm)).unwrap();
 
-      if (foundUser) {
-        dispatch(loginSuccess({
-          name: foundUser.name,
-          email: foundUser.email,
-          role: 'user',
-        }));
-        navigate('/products');
+      const userRole = result?.user?.role;
+      console.log('✅ Logged in user:', result?.user); // Optional debug
+
+      if (userRole === 'admin') {
+        navigate('/admin');
       } else {
-        setError('Invalid credentials');
+        navigate('/products');
       }
+    } catch (err) {
+      console.error('❌ Login failed:', err);
+      setError(err.message || 'Login failed. Please try again.');
     }
   };
 
@@ -56,7 +52,7 @@ const Login = () => {
         <input
           type="email"
           name="email"
-          placeholder='Enter your email'
+          placeholder="Enter your email"
           value={form.email}
           onChange={handleChange}
           required
@@ -66,13 +62,16 @@ const Login = () => {
         <input
           type="password"
           name="password"
-          placeholder='Enter your password'
+          placeholder="Enter your password"
           value={form.password}
           onChange={handleChange}
           required
         />
 
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
+
         <p className="signup-text">
           Don’t have an account? <Link to="/register">Sign up</Link>
         </p>
