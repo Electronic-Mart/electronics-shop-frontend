@@ -1,16 +1,16 @@
-# ⚡ Electro Mart - Frontend
+# Electro Mart - Frontend
 
 Welcome to the **frontend** of Electro Mart — a modern e-commerce platform for selling and managing electronic products. This responsive, role-based web application is built with **React + Vite** and communicates with a Flask backend via REST APIs.
 
 ---
 
-## 🌐 Live Demo
+## Live Demo
 
-> 🔗 Coming soon...
+>  Coming soon...
 
 ---
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **React** (with Vite)
 - **Redux Toolkit** (state management)
@@ -20,34 +20,34 @@ Welcome to the **frontend** of Electro Mart — a modern e-commerce platform for
 
 ---
 
-## 🧑‍💻 Features
+## Features
 
-### 🔐 Authentication
+### Authentication
 - Login & Register (with simulated backend and localStorage)
 - Role-based access control (`admin` vs `user`)
 - Auto-persistence of login state via localStorage
 
-### 🛍 Products
+### Products
 - View all products categorized (e.g., phones, laptops, accessories)
 - Click on a product to view detailed information
 - Add to Cart via "View Details" button
 
-### 🛒 Cart
+### Cart
 - View all items added to cart
 - Adjust quantities (increment/decrement)
 - Delete individual items
 - View cart total and proceed to checkout
 - Cart count reflects **unique items only**
 
-### 📦 Checkout
+### Checkout
 - Simulated checkout process
 - Accessible only to authenticated users
 
-### 👤 User Profile
+###  User Profile
 - View and update user details (name, email, password, phone)
 - See past orders associated with the logged-in user
 
-### ⚙️ Admin Panel
+### ⚙ Admin Panel
 > Accessible only to: `alexnjugi11@gmail.com` with password `1234`
 
 - **Admin Dashboard**
@@ -55,12 +55,12 @@ Welcome to the **frontend** of Electro Mart — a modern e-commerce platform for
 - **Manage Users**: View all users with their roles
 - **Analytics**: View total orders, revenue, and product trends
 
-### 📱 Mobile Friendly
+###  Mobile Friendly
 - Fully responsive with a hamburger menu for mobile navigation
 
 ---
 
-## 📁 Folder Structure
+## Folder Structure
 
 src/
 ├── components/ # Reusable UI components (e.g., Navbar, ProductCard)
@@ -108,16 +108,16 @@ Connect to backend
 
 Make sure your backend server (Flask API) is running and its base URL is correctly set in your API files (e.g., authAPI.js, productsAPI.js, etc.)
 
-🧪 Testing
-🔧 Coming soon: Jest tests for reducers and components
+ Testing
+ Coming soon: Jest tests for reducers and components
 
-🤝 Contributing
+ Contributing
 We welcome improvements, refactors, and bug fixes. Please fork the repo and open a pull request.
 
-📄 License
+ License
 This project is open-source and available under the MIT License.
 
-📬 Contact
+ Contact
 Developer: Alex Njugi Karanja
 
 Email: alexnjugi11@gmail.com
