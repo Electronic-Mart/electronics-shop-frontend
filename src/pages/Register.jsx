@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { registerUser } from '../features/auth/authAPI'; 
 import '../index.css';
 
 const Register = () => {
@@ -17,8 +18,9 @@ const Register = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
 
     if (form.password !== form.confirmPassword) {
       setError('Passwords do not match');
@@ -26,27 +28,18 @@ const Register = () => {
     }
 
     try {
-      // REPLACE THIS BLOCK with real API call when backend is ready
-      const users = JSON.parse(localStorage.getItem('users')) || [];
-      const exists = users.find((u) => u.email === form.email);
-
-      if (exists) {
-        setError('User already exists');
-        return;
-      }
-
-      const newUser = {
-        name: form.name,
-        email: form.email,
+      const payload = {
+        username: form.name.trim(),
+        email: form.email.trim(),
         password: form.password,
+        phone: '0700000000' // optional default or collect this in the form
       };
 
-      users.push(newUser);
-      localStorage.setItem('users', JSON.stringify(users));
-      // END OF PLACEHOLDER BLOCK
-
+      const response = await registerUser(payload);
+      console.log('✅ Registered user:', response);
       navigate('/login');
     } catch (err) {
+      console.error('❌ Registration failed:', err);
       setError(err.message || 'Registration failed');
     }
   };

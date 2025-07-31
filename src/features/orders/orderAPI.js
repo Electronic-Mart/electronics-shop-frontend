@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api/orders';
+const API_BASE = 'https://electronics-shop-backend.onrender.com/api/orders';
 
 export const placeOrder = async (orderData, token) => {
   const response = await fetch(`${API_BASE}`, {

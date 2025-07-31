@@ -63,7 +63,7 @@ const ProductDetails = () => {
           <h2>{product.name}</h2>
           <p><strong>Category:</strong> {product.category}</p>
           <p><strong>Price:</strong> KES {product.price.toLocaleString()}</p>
-          <p><strong>Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec justo ut justo mattis laoreet.</p>
+          <p><strong>Description:</strong> {product.description || 'No description available.'}</p>
 
           {!showControls ? (
             <button className="add-to-cart-btn" onClick={handleAddToCart}>
