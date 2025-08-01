@@ -5,7 +5,12 @@ Welcome to the **frontend** of Electro Mart — a modern e-commerce platform for
 ---
 
 ## Live Demo
+https://electronics-shop-frontend.onrender.com/
 
+## Back-end repo link
+https://github.com/Electronic-Mart/electronics-shop-backend-
+
+## Front-end deployed link
 https://electronics-shop-frontend.onrender.com/
 
 ---
