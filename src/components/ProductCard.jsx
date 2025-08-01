@@ -5,7 +5,7 @@ import '../index.css';
 const ProductCard = ({ product }) => {
   return (
     <div className="product-card">
-      <img src={product.image} alt={product.name} className="product-img" />
+      <img src={product.image_url} alt={product.name} className="product-img" />
       <h3>{product.name}</h3>
       <p className="product-price">Ksh {product.price.toLocaleString()}</p>
 
