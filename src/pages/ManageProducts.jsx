@@ -23,7 +23,7 @@ const ManageProducts = () => {
   const [form, setForm] = useState({
     name: '',
     price: '',
-    image_url: '',
+    imageFile: null,
     category: '',
     description: '',
   });
@@ -49,19 +49,51 @@ const ManageProducts = () => {
   }, [dispatch]);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value, files } = e.target;
+    if (name === 'imageFile') {
+      setForm({ ...form, imageFile: files[0] });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
-    const newProduct = {
-      ...form,
-      price: parseFloat(form.price),
-    };
+
     try {
-      const created = await createProductAPI(newProduct); // ✅ no token needed
+      // 🔼 1. Upload image to Cloudinary
+      const formData = new FormData();
+      formData.append('file', form.imageFile);
+      formData.append('upload_preset', 'unsigned_preset'); // 🔁 Replace with your actual preset
+
+      const cloudRes = await fetch('https://api.cloudinary.com/v1_1/dguxuwwvd/image/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const cloudData = await cloudRes.json();
+      const imageUrl = cloudData.secure_url;
+
+      // ✅ 2. Construct product object with image URL
+      const newProduct = {
+        name: form.name,
+        price: parseFloat(form.price),
+        image_url: imageUrl,
+        category: form.category,
+        description: form.description,
+      };
+
+      const created = await createProductAPI(newProduct);
       dispatch(addProduct(created));
-      setForm({ name: '', price: '', image_url: '', category: '', description: '' });
+
+      // 🔃 3. Reset form
+      setForm({
+        name: '',
+        price: '',
+        imageFile: null,
+        category: '',
+        description: '',
+      });
     } catch (err) {
       console.error('❌ Failed to add product:', err.message);
       alert('Failed to add product.');
@@ -70,7 +102,7 @@ const ManageProducts = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteProductAPI(id); // ✅ no token needed
+      await deleteProductAPI(id);
       dispatch(deleteProduct(id));
     } catch (err) {
       console.error('❌ Failed to delete product:', err.message);
@@ -84,7 +116,7 @@ const ManageProducts = () => {
       <main className="admin-main-content">
         <h2>Manage Products</h2>
 
-        <form onSubmit={handleAddProduct} className="product-form">
+        <form onSubmit={handleAddProduct} className="product-form" encType="multipart/form-data">
           <input
             type="text"
             name="name"
@@ -102,10 +134,9 @@ const ManageProducts = () => {
             required
           />
           <input
-            type="text"
-            name="image_url"
-            placeholder="Image URL"
-            value={form.image_url}
+            type="file"
+            name="imageFile"
+            accept="image/*"
             onChange={handleChange}
             required
           />
